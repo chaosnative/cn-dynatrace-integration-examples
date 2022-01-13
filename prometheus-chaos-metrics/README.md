@@ -33,9 +33,10 @@ This doc assumes that Dynatrace is already setup with OneAgent agents/daemonset 
   kubectl annotate pod <chaos-exporter-pod> metrics.dynatrace.com/port=8080 -n <litmus-agent-namespace>
   ```
   
-  **Note** You can also add the annotations to the corresponding service, provided it is in the same namespace as the exporter pod. 
+  **Note** 
   
-  For more info on annotations based metrics scrape, ref: [Monitoring Prometheus Metrics From Kubernetes in Dynatrace](https://www.dynatrace.com/support/help/how-to-use-dynatrace/infrastructure-monitoring/container-platform-monitoring/kubernetes-monitoring/monitor-prometheus-metrics#best)
+  - You can also add the annotations to the corresponding service, provided it is in the same namespace as the exporter pod. 
+  - For more info on annotations based metrics scrape, ref: [Monitoring Prometheus Metrics From Kubernetes in Dynatrace](https://www.dynatrace.com/support/help/how-to-use-dynatrace/infrastructure-monitoring/container-platform-monitoring/kubernetes-monitoring/monitor-prometheus-metrics#best)
   
   ## Viewing Chaos Metrics in Dynatrace
   
@@ -54,14 +55,14 @@ This doc assumes that Dynatrace is already setup with OneAgent agents/daemonset 
   
 ## Other Information
 
-- Prometheus chaos metrics can also be used to configure alerts in Dynatrace. The `litmuschaos_experiment_verdict` with appropriate labels (ex: chaosresult_verdict="Pass" or "Fail") 
-that can be used to notify the SREs/Dev teams of the result of an experiment. 
+- Prometheus chaos metrics can also be used to configure alerts in Dynatrace. The `litmuschaos_experiment_verdict` with appropriate labels 
+(ex: `chaosresult_verdict="Pass"` or `"Fail"`) that can be used to notify the SREs/Dev teams of the result of an experiment. 
 
 - Litmus also creates ganerates Kubernetes events for the ChaosEngine & ChaosResult objects. These can be ingested by enabling "Monitor Events" settings: 
 
 ![image](https://user-images.githubusercontent.com/21166217/149330309-8d7e7051-bbdb-4502-aa56-acbb7fa53716.png)
 
-  For more info on ingesting events, ref: [Monitoring Kubernetes Events in Dynatrace](https://www.dynatrace.com/support/help/how-to-use-dynatrace/infrastructure-monitoring/container-platform-monitoring/kubernetes-monitoring/monitor-events-kubernetes)
+- For more info on ingesting events, ref: [Monitoring Kubernetes Events in Dynatrace](https://www.dynatrace.com/support/help/how-to-use-dynatrace/infrastructure-monitoring/container-platform-monitoring/kubernetes-monitoring/monitor-events-kubernetes)
   
   
 
