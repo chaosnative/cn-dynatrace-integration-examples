@@ -26,7 +26,12 @@ This doc assumes that Dynatrace is already setup with OneAgent agents/daemonset 
   metrics.dynatrace.com/port: 8080
   ```
 
-  Ex: `kubectl annotate pod <chaos-exporter-pod>` metrics.dynatrace.com/scrape=true -n <litmus-agent-namespace>`, `kubectl annotate pod <chaos-exporter-pod> metrics.dynatrace.com/port=8080 -n <litmus-agent-namespace>`
+  Here are the commands that can be used: 
+  
+  ```
+  kubectl annotate pod <chaos-exporter-pod> metrics.dynatrace.com/scrape=true -n <litmus-agent-namespace>
+  kubectl annotate pod <chaos-exporter-pod> metrics.dynatrace.com/port=8080 -n <litmus-agent-namespace>
+  ```
   
   **Note** You can also add the annotations to the corresponding service, provided it is in the same namespace as the exporter pod. 
   
