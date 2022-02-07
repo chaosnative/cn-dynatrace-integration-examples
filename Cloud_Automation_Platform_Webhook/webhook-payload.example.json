@@ -1,0 +1,54 @@
+{
+  "event": "{{.type}}",
+  "stage": "{{.data.stage}}",
+  "project": "{{.data.project}}",
+  "service": "{{.data.service}}",
+  "shkeptncontext": "{{.shkeptncontext}}",
+  "id": "{{.id}}",
+  "engine": {
+    "apiVersion": "litmuschaos.io/v1alpha1",
+    "kind": "ChaosEngine",
+    "metadata": {
+      "generateName": "helloservice-chaos-",
+      "namespace": "litmus-chaos"
+    },
+    "spec": {
+      "appinfo": {
+        "applabel": "app=helloservice",
+        "appkind": "deployment"
+      },
+      "annotationCheck": "false",
+      "engineState": "active",
+      "chaosServiceAccount": "pod-delete-sa",
+      "monitoring": true,
+      "jobCleanUpPolicy": "delete",
+      "experiments": [
+        {
+          "name": "pod-delete",
+          "spec": {
+            "components": {
+              "env": [
+                {
+                  "name": "TOTAL_CHAOS_DURATION",
+                  "value": "10"
+                },
+                {
+                  "name": "RAMP_TIME",
+                  "value": "10"
+                },
+                {
+                  "name": "CHAOS_INTERVAL",
+                  "value": "15"
+                },
+                {
+                  "name": "FORCE",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webhook-secrets
+stringData:
+  DYNATRACE_URL: "<DYNATRACE_URL>"
+  AUTH_TOKEN: "<DYNATRACE_API_KEY>"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cle-webhook
+  labels:
+    component: cle-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: cle-webhook
+  template:
+    metadata:
+      labels:
+        component: cle-webhook
+    spec:
+      serviceAccountName: litmus
+      containers:
+        - name: validator
+          image: chaosnative/dynatrace-webhook:latest
+          envFrom:
+            - secretRef:
+                name: webhook-secrets
+          env:
+            - name: DEBUG
+              value: "true"
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 9091
+      targetPort: 8080
+  selector:
+    component: cle-webhook
